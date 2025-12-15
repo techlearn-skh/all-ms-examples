@@ -6,11 +6,13 @@ import com.skh.services.ConsumerServiceImpl;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -20,6 +22,9 @@ public class ConsumerController {
 
     @Autowired
     private ConsumerServiceImpl consumerService;
+
+    @Autowired
+    private Environment environment;
 
     @GetMapping(path = "/fetchEmployee/{retryCount}")
     public ResponseEntity<Mono<Employee>> fetchEmployee(@PathVariable Integer retryCount) throws InterruptedException {
@@ -41,4 +46,19 @@ public class ConsumerController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @GetMapping("/mock")
+    public Mono<String> testMockServer() {
+        WebClient webClient = WebClient.create("http://localhost:8080");
+        return webClient.get()
+                .uri("/api/employees/101")
+                .retrieve()
+                .bodyToMono(String.class);
+    }
 }
+
+
+
+
+
+
+
