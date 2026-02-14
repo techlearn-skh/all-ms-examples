@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,13 @@ public class EmployeeController {
 
     @GetMapping(path = "/dummy")
     public ResponseEntity<EmployeeEntity> dummy() {
-        return ResponseEntity.ok(new EmployeeEntity());
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        employeeEntity.setEmpId(12);
+        employeeEntity.setEmpName("SKH");
+        employeeEntity.setEmpDOJ(new Date());
+        employeeEntity.setIsPermenentEmp(true);
+        employeeEntity.setEmpSalary(1212d);
+        return ResponseEntity.ok(employeeEntity);
     }
 
     // Create

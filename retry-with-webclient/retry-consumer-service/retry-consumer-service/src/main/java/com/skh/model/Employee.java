@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Component
-public class Employee implements Cloneable {
+public class Employee {
 
 	private Integer empId;
 	private String empName;
