@@ -4,20 +4,17 @@ eureka:
       defaultZone: http://localhost:8083/eureka
 
 spring:
-#  profiles:
-#    active: test
   application:
     name: api-gate-way-scg
   cloud:
     gateway:
       routes:
         - id: first-service
-          uri: lb://FIRST-SERVICE/
+          uri: http://localhost:9001
           predicates:
             - Path=/fs/**
         - id: second-service
-#          uri: lb://SECOND-SERVICE/
-          uri: lb://second-service/
+          uri: http://localhost:9002
           predicates:
             - Path=/ss/**
 server:
