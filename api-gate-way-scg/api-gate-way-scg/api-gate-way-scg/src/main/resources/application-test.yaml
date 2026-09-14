@@ -1,24 +1,42 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: api-gate-way-scg
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: first-service
+              uri: http://localhost:9001
+              predicates:
+                - Path=/fs/**
+
+            - id: second-service
+              uri: http://localhost:9008
+              predicates:
+                - Path=/ss/**
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8083/eureka
 
-spring:
-  application:
-    name: api-gate-way-scg
-  cloud:
-    gateway:
-      routes:
-        - id: first-service
-          uri: http://localhost:9001
-          predicates:
-            - Path=/fs/**
-        - id: second-service
-          uri: http://localhost:9002
-          predicates:
-            - Path=/ss/**
-server:
-  port: 9000
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.web: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+#  For above check this --> http://localhost:9000/actuator/gateway/routes
+
 
 
 

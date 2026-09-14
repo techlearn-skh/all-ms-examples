@@ -4,8 +4,8 @@ eureka:
       defaultZone: http://localhost:8083/eureka
 
 spring:
-#  profiles:
-#    active: test
+  profiles:
+    active: test
   application:
     name: api-gate-way-scg
   cloud:
